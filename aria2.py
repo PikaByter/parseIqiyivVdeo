@@ -8,7 +8,6 @@ from pyaria2 import Aria2RPC
 # resp = jsonrpc.addUris('https://music.snowmusic.cc/radio/13714_1507261169_4.mp3', options={"out": "aa.mp3"})
 jsonrpc = Aria2RPC()
 def get_file_from_url(link, file_name):
-    print(link)
     set_dir = os.path.dirname(__file__)
     options = {"dir": set_dir, "out": file_name, }
     res = jsonrpc.addUri([link], options=options)

@@ -70,7 +70,7 @@ def parse(links):
         parse_url = "https://tool.lu/videoparser/ajax.html"
         r = requests.post(url=parse_url, headers=headers, data=data)
         print("解析完成，获取链接！")
-        print("————————————————")
+
         data = eval(str(r.text))
         streams=data["items"][0]["streams"]
         HD_urls_info= get_HD_urls_info(streams)
@@ -91,6 +91,7 @@ def parse(links):
             time.sleep(1)
             remove_error_task()
             if active_task_num()<3:
+                print("\n本集剩余任务不足3个，开始下一集的解析")
                 break
             files=os.listdir(dir_name)
             downloading_num=0
@@ -101,6 +102,8 @@ def parse(links):
             info = "共有%d个分片,正在下载文件数：%d,已完成文件数：%d,当前下载速度：%.3fM/s"%(slice_num,downloading_num,len(files)-2*downloading_num,get_global_speed())
             info_added_color='\033[5;33;40m%s\033[0m'%info
             print("\r",info_added_color, end='', flush=True)
+
+        print("————————————————")
         print()
         with open("current_episode.txt","w") as f:
             f.write(str(episode_num))
